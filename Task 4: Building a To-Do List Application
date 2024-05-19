@@ -1,0 +1,64 @@
+import json
+
+def load_tasks():
+    try:
+        with open('tasks.json', 'r') as file:
+            tasks = json.load(file)
+    except FileNotFoundError:
+        tasks = []
+    return tasks
+
+def save_tasks(tasks):
+    with open('tasks.json', 'w') as file:
+        json.dump(tasks, file)
+
+def add_task(tasks, task):
+    tasks.append(task)
+    save_tasks(tasks)
+    print("Task added successfully.")
+
+def delete_task(tasks, task_index):
+    if task_index < len(tasks):
+        del tasks[task_index]
+        save_tasks(tasks)
+        print("Task deleted successfully.")
+    else:
+        print("Invalid task index.")
+
+def view_tasks(tasks):
+    if tasks:
+        print("Tasks:")
+        for index, task in enumerate(tasks):
+            print(f"{index + 1}. {task}")
+    else:
+        print("No tasks.")
+
+def main():
+    tasks = load_tasks()
+
+    while True:
+        print("\nTo-Do List Menu:")
+        print("1. Add Task")
+        print("2. Delete Task")
+        print("3. View Tasks")
+        print("4. Exit")
+
+        choice = input("Enter choice: ")
+
+        if choice == '1':
+            task = input("Enter task: ")
+            add_task(tasks, task)
+        elif choice == '2':
+            view_tasks(tasks)
+            task_index = int(input("Enter task index to delete: ")) - 1
+            delete_task(tasks, task_index)
+        elif choice == '3':
+            view_tasks(tasks)
+        elif choice == '4':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()
