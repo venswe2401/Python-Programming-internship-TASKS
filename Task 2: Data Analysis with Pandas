@@ -1,0 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Step 1: Load Dataset
+# Assuming 'data.csv' is your dataset file
+df = pd.read_csv('data.csv')
+
+# Step 2: Explore Data
+print(df.head())  # Display the first few rows of the DataFrame
+print(df.info())  # Display DataFrame info including data types
+print(df.describe())  # Display summary statistics for numeric columns
+
+# Step 3: Filtering and Sorting
+filtered_data = df[df['column_name'] > 10]  # Example of filtering
+sorted_data = df.sort_values(by='column_name')  # Example of sorting
+
+# Step 4: Grouping Data
+grouped_data = df.groupby('category_column')['numeric_column'].mean()
+
+# Step 5: Calculate Summary Statistics
+mean_value = df['numeric_column'].mean()
+median_value = df['numeric_column'].median()
+std_deviation = df['numeric_column'].std()
+
+# Step 6: Data Visualization
+plt.hist(df['numeric_column'])
+plt.xlabel('Numeric Column')
+plt.ylabel('Frequency')
+plt.title('Histogram of Numeric Column')
+plt.show()
